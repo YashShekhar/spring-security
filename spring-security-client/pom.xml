@@ -15,6 +15,7 @@
 	<description>spring-security-client-project</description>
 	<properties>
 		<java.version>17</java.version>
+		<log-back.version>7.4</log-back.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -50,6 +51,12 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>net.logstash.logback</groupId>
+			<artifactId>logstash-logback-encoder</artifactId>
+			<version>${log-back.version}</version>
+		</dependency>
+
 	</dependencies>
 	<build>
 		<plugins>

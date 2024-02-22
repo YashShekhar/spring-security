@@ -2,11 +2,9 @@ package dev.yashshekhar.springsecurityclient.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -18,6 +16,8 @@ public class WebSecurityConfig {
     private static final String[] WHITE_LIST_URLS = {
             "/hello",
             "/register",
+            "/resetPassword*",
+            "/savePassword*",
             "/verifyRegistration*",
             "/resendVerifyToken*",
     };
@@ -34,13 +34,14 @@ public class WebSecurityConfig {
                 .cors(AbstractHttpConfigurer::disable)
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers(WHITE_LIST_URLS)
-                        .permitAll()
+                                //.requestMatchers(WHITE_LIST_URLS)
+                                .anyRequest()
+                                .permitAll()
                         //.requestMatchers("/api/**")
                         //.authenticated()
-                        );
-                //.oauth2Login((oauth2Login) -> oauth2Login.loginPage("/oauth2/authorization/api-client-oidc"))
-                //.oauth2Client(Customizer.withDefaults());
+                );
+        //.oauth2Login((oauth2Login) -> oauth2Login.loginPage("/oauth2/authorization/api-client-oidc"))
+        //.oauth2Client(Customizer.withDefaults());
         return http.build();
     }
 }
